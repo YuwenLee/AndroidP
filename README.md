@@ -7,7 +7,7 @@ It takes at least 3 arguments (input_dir, prop-dictionary, and output) and then 
       out/target/product/abc/system \
       system_image_info.txt \
       obj/PACKING/targetfiles/system.img \
-      out/target/product/htc/system
+      out/target/product/abc/system
 </pre>
 ## [1]. input_dir
 The source of the file system. Take the image of system as example, the input directory looks like
