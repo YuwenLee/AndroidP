@@ -3,7 +3,7 @@
 &nbsp; &nbsp; [1]. make systemimage and <br>
 &nbsp; &nbsp; [2]. make target-files-package (adding the system image to target files first)<br>
 The whole picture looks like: <br>
-&nbsp; &nbsp; <img src="https://github.com/YuwenLee/Android_P/blob/master/makefile_add-img-to-target-files.png" width=720/> <br>
+&nbsp; &nbsp; <img src="https://github.com/YuwenLee/Android_P/blob/master/pic/makefile_add-img-to-target-files.png" width=720/> <br>
 It takes at least 3 arguments (input_dir, prop-dictionary, and output) and then invokes mkuserimg_mke2fs.sh to generate the output image.
 <pre>
   build_image.py \
