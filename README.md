@@ -1,6 +1,9 @@
 # build_image.py
-<b>build_image.py</b> would be invoked when [1]. making system image and [2]. adding the system image to target files: <br>
-    <img src="https://github.com/YuwenLee/Android_P/blob/master/makefile_add-img-to-target-files.png" width=640/> <br>
+<b>build_image.py</b> would be invoked when <br>
+&nbsp; &nbsp; [1]. make systemimage and <br>
+&nbsp; &nbsp; [2]. make target-files-package (adding the system image to target files first)<br>
+The whole picture looks like: <br>
+&nbsp; &nbsp; <img src="https://github.com/YuwenLee/Android_P/blob/master/makefile_add-img-to-target-files.png" width=720/> <br>
 It takes at least 3 arguments (input_dir, prop-dictionary, and output) and then invokes mkuserimg_mke2fs.sh to generate the output image.
 <pre>
   build_image.py \
