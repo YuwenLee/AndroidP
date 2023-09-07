@@ -1,6 +1,6 @@
 Table of Contents
 =================
-  * [Integrate Prebuilt APK](#Integrate Prebuilt APK)
+  * [Integrate Prebuilt APK](#Integrate_Prebuilt_APK)
   * [build_image.py](#build_image.py)
 
 Integrate Prebuilt APK
