@@ -1,11 +1,11 @@
 Table of Contents
 =================
-  * [Integrate Prebuilt APK](#Integrate_Prebuilt_APK)
-  * [build_image.py](#build_image.py)
+ * [Integrate Prebuilt APK](#Integrate_Prebuilt_APK)
+ * [build_image.py](#build_image_py)
 
-Integrate Prebuilt APK
-======================
-Trace <b>build/make/core/prebuilt_internal.mk</b> to figure out how the build process handles the makefile (<b>Android.mk</b>) of a pre-built APK:
+<h1 id="Integrate_Prebuilt_APK">Integrate Prebuilt APK</h1>
+Trace <b>build/make/core/prebuilt_internal.mk</b> to figure out how the build process handles the makefile (<b>Android.mk</b>) of a pre-built APK, for example, like the following one:<br/>
+
 <pre>
 LOCAL_PATH := $(call my-dir)
 
@@ -28,14 +28,15 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := APPS
 LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)
 LOCAL_CERTIFICATE := platform
-LOCAL_PRIVILEGED_MODULE := true
+LOCAL_PRIVILEGED_MODULE := true <---
 LOCAL_DEX_PREOPT := true
 
 include $(BUILD_PREBUILT)
 </pre>
+where <b>LOCAL_PRIVILEGED_MODULE := true</b> can have the signature of the APK removed.
 
-build_image.py
-==============
+<h1 id="build_image_py">build_image.py</h1>
+
 <b>build_image.py</b> would be invoked when <br>
 &nbsp; &nbsp; [1]. make systemimage and <br>
 &nbsp; &nbsp; [2]. make target-files-package (adding the system image to target files first)<br>
