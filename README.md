@@ -93,15 +93,23 @@ AlarmManager讓應用程式可以利用系統的alarm services，於未來的時
 <h2>測試APK</h2>
 此APK使用AlarmManager安排一個每兩分鐘執行一次的動作。
 
-* 安裝
+<h3>安裝</h3>
 <pre>adb install</pre>
-
-* 執行
+<h3>執行</h3>
 <pre>adb shell am start -n com.example.tryalarmmanager/.MainActivity</pre>
-
+<img src="https://github.com/YuwenLee/Android_P/blob/master/pic/AlarmManager_TestAPK_UI.png"/> <br>
 按完SET ALARM Button後，離開MainActivity (Known Issue)，等待定期被執行。可觀察adb logcat<br/>
 <pre>==YWLEE==: onReceive: null</pre><br/>
-兩分鐘出現一次。測試APK使用的alarm type在Device進入Suspending Mode後仍然會運作。<br/>
+兩分鐘出現一次。測試APK使用的alarm type在Device進入Suspending Mode後仍然會運作。
+<h3>說明</h3>
+在預定時間要執行動作的class命名為Alarm。此Class extends BroadcastReciever。Alarm Class 的Instance在APK的MainActivity產生：
+<img src="https://github.com/YuwenLee/Android_P/blob/master/pic/AlarmManager_TestAPK_MainActivity.png"/>
+當User按下SET ALARM按鈕時，APK的setAlarm( ) method會被呼叫：
+<img src="https://github.com/YuwenLee/Android_P/blob/master/pic/AlarmManager_TestAPK_MainActivity.png"/>
+[1]. 取得AlarmManager<br/>
+[2]. 以Alarm Class產生一個Intent實體<br/>
+[3]. 以步驟[2]的Intent產生PendingIntent<br/>
+[4]. 設定AlarmManager，於固定的未來時間重複執行PendingIntent<br/>
 
 [Known Issue]<br/>
 測試APK若不離開MainActivity，仍然可以看到log，但Device無法進入Suspending Mode。<br/>
@@ -120,15 +128,15 @@ setRepeating(
 </pre>
 此method第一個參數表示鬧鐘類型 (Alarm Type)，第二個參數表示鬧鐘首次執行時間，第三個參數表示鬧鐘兩次執行的間隔時間。鬧鐘類型會影響PendingIntent如何被執行。<br/>
 [1]. AlarmManager.ELAPSED_REALTIME<br/>
-    此狀態下鬧鐘使用相對時間，鬧鐘在睡眠狀態下不可用<br/><br/>
+此狀態下鬧鐘使用相對時間，鬧鐘在睡眠狀態下不可用<br/><br/>
 [2]. AlarmManager.ELAPSED_REALTIME_WAKEUP<br/>
-    此狀態下鬧鐘使用相對時間，鬧鐘在睡眠狀態下會喚醒系統並執行提示功能<br/><br/>
+此狀態下鬧鐘使用相對時間，鬧鐘在睡眠狀態下會喚醒系統並執行提示功能<br/><br/>
 [3]. AlarmManager.RTC<br/>
-    此狀態下鬧鐘使用絕對時間，即當前系統時間。鬧鐘在睡眠狀態下不可用。<br/><br/>
+此狀態下鬧鐘使用絕對時間，即當前系統時間。鬧鐘在睡眠狀態下不可用。<br/><br/>
 [4]. AlarmManager.RTC_WAKEUP<br/>
-    此狀態下鬧鐘使用絕對時間。鬧鐘在睡眠狀態下會喚醒系統並執行提示功能。<br/><br/>
+此狀態下鬧鐘使用絕對時間。鬧鐘在睡眠狀態下會喚醒系統並執行提示功能。<br/><br/>
 [5]. AlarmManager.POWER_OFF_WAKEUP<br/>
-    鬧鐘在手機關機狀態下也能正常進行提示功能。不過本狀態受SDK版本影響，某些版本並不支持。<br/><br/>
+鬧鐘在手機關機狀態下也能正常進行提示功能。不過本狀態受SDK版本影響，某些版本並不支持。<br/><br/>
 
 AlarmManager還有其他method可以設定PendingIntent如何被執行 (例如執行一次)。<br/>
 
