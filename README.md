@@ -3,7 +3,7 @@ Table of Contents
  * [1. build_image.py](#build_image_py)
  * [2. Integrate Prebuilt APK](#Integrate_Prebuilt_APK)
  * [3. Alarm Manager](#Alarm_manager)
-
+<br/>
 <h1 id="build_image_py">1. build_image.py</h1>
 
 <b>build_image.py</b> would be invoked when <br>
@@ -44,8 +44,28 @@ Path of the output image file. This parameter is used as the 2nd argument passed
 According the comment in the script, this parameter is "the path of the product out directory to read device specific FS config files".
 In the script, this parameter is used as -D option of the build_command. The arguments to the build command (mkuserimg.sh) are:
 When building the system.img, build_image.py uses the yellow parts of the above prop-dictionary to generate the command:
+<pre>
+mkuserimg.sh [-s] SRC_DIR OUTPUT_FILE EXT_VARIANT MOUNT_POINT SIZE [-j <journal_size>]
+             [-T TIMESTAMP] [-C FS_CONFIG] [-D PRODUCT_OUT] [-B BLOCK_LIST_FILE]
+             [-d BASE_ALLOC_FILE_IN ] [-A BASE_ALLOC_FILE_OUT ] [-L LABEL]
+             [-i INODES ] [-M RSV_PCT] [-e ERASE_BLOCK_SIZE] [-o FLASH_BLOCK_SIZE]
+             [-U MKE2FS_UUID] [-S MKE2FS_HASH_SEED] [-c] [FILE_CONTEXTS]
+</pre>
 
+When building the system.img, build_image.py uses the yellow parts of the above prop-dictionary to generate the command:
 
+The following is some examples of the commands and arguments of building the system images:
+
+<pre>
+mkuserimg_mke2fs.sh \
+    out/target/product/___/system \                                             <--- SRC_DIR
+    out/target/product/___/obj/PACKAGING/systemimage_intermediates/system.img \ <--- OUTPUT_FILE
+    ext4 / 3221225472 \                                                         <--- EXT_VARIANT MOUNT_POINT and SIZE
+    -D out/target/product/___/system \
+    -L system \
+    out/target/product/___/obj/ETC/file_contexts.bin_intermediates/file_contexts.bin
+</pre>
+<br/>
 <h1 id="Integrate_Prebuilt_APK">2. Integrate Prebuilt APK</h1>
 Trace <b>build/make/core/prebuilt_internal.mk</b> to figure out how the build process handles the makefile (<b>Android.mk</b>) of a pre-built APK, for example, like the following one:<br/>
 
@@ -77,7 +97,8 @@ LOCAL_DEX_PREOPT := true
 include $(BUILD_PREBUILT)
 </pre>
 where <b>LOCAL_PRIVILEGED_MODULE := true</b> can have the signature of the APK removed.
-
+<br/>
+<br/>
 <h1 id="Alarm_manager">3. Alarm Manager</h1>
 
   [1]. 概念<br/>
@@ -111,7 +132,7 @@ AlarmManager讓應用程式可以利用系統的alarm services，於未來的時
 [3]. 以步驟[2]的Intent產生PendingIntent<br/>
 [4]. 設定AlarmManager，於固定的未來時間重複執行PendingIntent<br/>
 
-[Known Issue]<br/>
+<h3>Known Issue</h3><br/>
 測試APK若不離開MainActivity，仍然可以看到log，但Device無法進入Suspending Mode。<br/>
 
 <h2>鬧鐘類型 (Alarm Type)</h2>
