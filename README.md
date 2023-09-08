@@ -33,7 +33,8 @@ $(if $(BOARD_SYSTEMIMAGE_PARTITION_SIZE), \
    $(hide) echo "system_size=$(BOARD_SYSTEMIMAGE_PARTITION_SIZE)" \
    >> $(1))
 </pre>
-A complete dictionary looks like
+A complete dictionary looks like:<br/>
+&nbsp; &nbsp; <img src="https://github.com/YuwenLee/Android_P/blob/master/pic/BuildImg_py_DictionaryTable.png" width=640/> <br>
 
 [3]. out_file
 -------------
@@ -58,9 +59,9 @@ The following is some examples of the commands and arguments of building the sys
 
 <pre>
 mkuserimg_mke2fs.sh \
-    out/target/product/___/system \                                             <--- SRC_DIR
-    out/target/product/___/obj/PACKAGING/systemimage_intermediates/system.img \ <--- OUTPUT_FILE
-    ext4 / 3221225472 \                                                         <--- EXT_VARIANT MOUNT_POINT and SIZE
+    out/target/product/___/system \                                             <- SRC_DIR
+    out/target/product/___/obj/PACKAGING/systemimage_intermediates/system.img \ <- OUTPUT_FILE
+    ext4 / 3221225472 \                                                         <- EXT_VARIANT MOUNT_POINT and SIZE
     -D out/target/product/___/system \
     -L system \
     out/target/product/___/obj/ETC/file_contexts.bin_intermediates/file_contexts.bin
@@ -100,7 +101,6 @@ where <b>LOCAL_PRIVILEGED_MODULE := true</b> can have the signature of the APK r
 <br/>
 <br/>
 <h1 id="Alarm_manager">3. Alarm Manager</h1>
-
   [1]. 概念<br/>
   [2]. 測試APK<br/>
   [3]. 鬧鐘類型<br/>
@@ -120,13 +120,13 @@ AlarmManager讓應用程式可以利用系統的alarm services，於未來的時
 <pre>adb shell am start -n com.example.tryalarmmanager/.MainActivity</pre>
 <img src="https://github.com/YuwenLee/Android_P/blob/master/pic/AlarmManager_TestAPK_UI.png"/> <br>
 按完SET ALARM Button後，離開MainActivity (Known Issue)，等待定期被執行。可觀察adb logcat<br/>
-<pre>==YWLEE==: onReceive: null</pre><br/>
+<pre>==YWLEE==: onReceive: null</pre>
 兩分鐘出現一次。測試APK使用的alarm type在Device進入Suspending Mode後仍然會運作。
 <h3>說明</h3>
 在預定時間要執行動作的class命名為Alarm。此Class extends BroadcastReciever。Alarm Class 的Instance在APK的MainActivity產生：
 <img src="https://github.com/YuwenLee/Android_P/blob/master/pic/AlarmManager_TestAPK_MainActivity.png"/>
 當User按下SET ALARM按鈕時，APK的setAlarm( ) method會被呼叫：
-<img src="https://github.com/YuwenLee/Android_P/blob/master/pic/AlarmManager_TestAPK_MainActivity.png"/>
+<img src="https://github.com/YuwenLee/Android_P/blob/master/pic/AlarmManager_TestAPK_SetAlarm.png"/>
 [1]. 取得AlarmManager<br/>
 [2]. 以Alarm Class產生一個Intent實體<br/>
 [3]. 以步驟[2]的Intent產生PendingIntent<br/>
